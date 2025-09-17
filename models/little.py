@@ -33,6 +33,8 @@ def request_generator(env, servers):
         interarrival = random.uniform(0, INTERARRIVAL_TIME * 2)
         interarrival_times.append(interarrival)
         yield env.timeout(interarrival)
+        # Schedule the processing of the request at time NOW.
+        # Since we do not use yield, this will NOT wait for the process to finish.
         env.process(process_request(env, servers))
 
 
